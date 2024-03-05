@@ -33,19 +33,19 @@ API_REQUEST_FIELDS = {
         'reportType': 'SUBSCRIPTION_EVENT',
         'frequency': 'DAILY',
         'reportSubType': 'SUMMARY',
-        'version': '1_2'
+        'version': '1_3'
     },
     'subscriber_report': {
         'reportType': 'SUBSCRIBER',
         'frequency': 'DAILY',
         'reportSubType': 'DETAILED',
-        'version': '1_2'
+        'version': '1_3'
     },
     'subscription_report': {
         'reportType': 'SUBSCRIPTION',
         'frequency': 'DAILY',
         'reportSubType': 'SUMMARY',
-        'version': '1_2'
+        'version': '1_3'
     },
     'sales_report': {
         'reportType': 'SALES',
