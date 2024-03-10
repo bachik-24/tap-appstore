@@ -29,29 +29,11 @@ BOOKMARK_DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 TIME_EXTRACTED_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 API_REQUEST_FIELDS = {
-    'subscription_event_report': {
-        'reportType': 'SUBSCRIPTION_EVENT',
-        'frequency': 'DAILY',
-        'reportSubType': 'SUMMARY',
-        'version': '1_3'
-    },
     'subscriber_report': {
         'reportType': 'SUBSCRIBER',
         'frequency': 'DAILY',
         'reportSubType': 'DETAILED',
         'version': '1_3'
-    },
-    'subscription_report': {
-        'reportType': 'SUBSCRIPTION',
-        'frequency': 'DAILY',
-        'reportSubType': 'SUMMARY',
-        'version': '1_3'
-    },
-    'sales_report': {
-        'reportType': 'SALES',
-        'frequency': 'DAILY',
-        'reportSubType': 'SUMMARY',
-        'version': '1_0'
     }
 }
 
