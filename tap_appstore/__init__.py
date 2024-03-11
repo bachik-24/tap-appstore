@@ -29,14 +29,31 @@ BOOKMARK_DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 TIME_EXTRACTED_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 API_REQUEST_FIELDS = {
+    'subscription_event_report': {
+        'reportType': 'SUBSCRIPTION_EVENT',
+        'frequency': 'DAILY',
+        'reportSubType': 'SUMMARY',
+        'version': '1_3'
+    },
     'subscriber_report': {
         'reportType': 'SUBSCRIBER',
         'frequency': 'DAILY',
         'reportSubType': 'DETAILED',
         'version': '1_3'
+    },
+    'subscription_report': {
+        'reportType': 'SUBSCRIPTION',
+        'frequency': 'DAILY',
+        'reportSubType': 'SUMMARY',
+        'version': '1_3'
+    },
+    'sales_report': {
+        'reportType': 'SALES',
+        'frequency': 'DAILY',
+        'reportSubType': 'SUMMARY',
+        'version': '1_0'
     }
 }
-
 
 class Context:
     config = {}
@@ -198,9 +215,12 @@ def query_report(api: Api, catalog_entry):
         while current_date_iterator + delta < extraction_time:
             report_date = current_date_iterator.strftime("%Y-%m-%d")
             LOGGER.info("Requesting Appstore data for: %s on %s", stream_name, report_date)
+            LOGGER.info("Data stream_schema = %s", stream_schema)
             # setting report filters for each stream
             report_filters = get_api_request_fields(report_date, stream_name)
+            LOGGER.info("Ihar 1")
             report_optional = _attempt_download_report(api, report_filters)
+            LOGGER.info("Ihar 2")
 
             if report_optional:
                 # write records
