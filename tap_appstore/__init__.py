@@ -215,27 +215,30 @@ def query_report(api: Api, catalog_entry):
         while current_date_iterator + delta < extraction_time:
             report_date = current_date_iterator.strftime("%Y-%m-%d")
             LOGGER.info("Requesting Appstore data for: %s on %s", stream_name, report_date)
-            LOGGER.info("Data stream_schema = %s", stream_schema)
+            LOGGER.info("Data stream_schema = %s. Stream name = %s ", stream_schema, stream_name)
             # setting report filters for each stream
             report_filters = get_api_request_fields(report_date, stream_name)
-            LOGGER.info("Ihar 1")
+            LOGGER.info("report filters %s", report_filters )
             report_optional = _attempt_download_report(api, report_filters)
-            LOGGER.info("Ihar 2")
+            LOGGER.info("report optional %s", report_optional)
 
             if report_optional:
                 # write records
                 for index, line in enumerate(report_optional, start=1):
+                    LOGGER.info("index %s.  line %s", index, line)
                     data = line
                     data['_line_id'] = index
                     data['_time_extracted'] = extraction_time.strftime(TIME_EXTRACTED_FORMAT)
                     data['_api_report_date'] = report_date
                     rec = transformer.transform(data, stream_schema)
+                    LOGGER.info("rec %s", rec)
 
                     singer.write_record(
                         stream_name,
                         rec,
                         time_extracted=extraction_time
                     )
+                    LOGGER.info("ihar 1")
 
                     Context.new_counts[stream_name] += 1
 
@@ -245,8 +248,10 @@ def query_report(api: Api, catalog_entry):
                     'start_date',
                     (current_date_iterator + delta).strftime(BOOKMARK_DATE_FORMAT)
                 )
+                LOGGER.info("ihar 2")
 
                 singer.write_state(Context.state)
+                LOGGER.info("ihar 3")
 
             current_date_iterator += delta
 
